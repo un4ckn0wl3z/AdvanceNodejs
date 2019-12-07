@@ -1,3 +1,4 @@
+// set UV_THREADPOOL_SIZE=1 & node index.js
 const cluster = require('cluster')
 
 
@@ -5,11 +6,13 @@ const cluster = require('cluster')
 if (cluster.isMaster) {
     // Cause index.js to be excuted *again* but in slave mode.
     cluster.fork();
+    cluster.fork();
+
 } else {
 
     // slave code.
-    const crypto = require('crypto');
     const express = require('express');
+    const crypto = require('crypto');
     const app = express();
 
     app.get('/', (req, res) => {
