@@ -7,6 +7,10 @@ if (cluster.isMaster) {
     // Cause index.js to be excuted *again* but in slave mode.
     cluster.fork();
     cluster.fork();
+    cluster.fork();
+    cluster.fork();
+    cluster.fork();
+    cluster.fork();
 
 } else {
 
