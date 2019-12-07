@@ -1,24 +1,21 @@
 const cluster = require('cluster')
 
+
 // master?
 if (cluster.isMaster) {
-    // Cause index.js to be excuted *agin* but in slave mode.
+    // Cause index.js to be excuted *again* but in slave mode.
     cluster.fork();
 } else {
 
     // slave code.
-
+    const crypto = require('crypto');
     const express = require('express');
     const app = express();
 
-    function doWork(duration) {
-        const start = Date.now();
-        while (Date.now() - start < duration) { }
-    }
-
     app.get('/', (req, res) => {
-        doWork(5000);
-        res.send('Hi there');
+        crypto.pbkdf2('a', 'b', 100000, 512, 'sha512', () => {
+            res.send('Hi there');
+        });
     });
 
     app.get('/fast', (req, res) => {
